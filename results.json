@@ -1,0 +1,108 @@
+{
+  "within_session": {
+    "split": "70/15/15 random",
+    "n_train": 18969,
+    "n_val": 4064,
+    "n_test": 4066,
+    "mtl_equal": {
+      "activity": {
+        "acc": 0.835,
+        "f1": 0.8267
+      },
+      "fall": {
+        "acc": 0.9304,
+        "f1": 0.8705
+      },
+      "subject": {
+        "acc": 0.9656,
+        "f1": 0.9648
+      }
+    },
+    "single_task": {
+      "activity": {
+        "acc": 0.8374,
+        "f1": 0.8289
+      },
+      "fall": {
+        "acc": 0.9378,
+        "f1": 0.8756
+      },
+      "subject": {
+        "acc": 0.9825,
+        "f1": 0.9822
+      }
+    },
+    "mtl_ablation": {
+      "act_focused_1_0.5_0.1": {
+        "activity_acc": 0.8389,
+        "fall_acc": 0.9484,
+        "subject_acc": 0.8379
+      },
+      "no_subject_1_1_0": {
+        "activity_acc": 0.8074,
+        "fall_acc": 0.9447,
+        "subject_acc": 0.0433
+      },
+      "subj_mild_1_1_0.3": {
+        "activity_acc": 0.8406,
+        "fall_acc": 0.9533,
+        "subject_acc": 0.9279
+      },
+      "uncertainty_weighted": {
+        "activity_acc": 0.8296,
+        "fall_acc": 0.9304,
+        "subject_acc": 0.9653
+      }
+    }
+  },
+  "cross_session": {
+    "split": "S01-S21 train, S22-S24 val, S25-S30 test",
+    "n_train": 18908,
+    "n_val": 2711,
+    "n_test": 5480,
+    "vanilla_mtl": {
+      "activity": {
+        "acc": 0.2797,
+        "f1": 0.2302
+      },
+      "fall": {
+        "acc": 0.8005,
+        "f1": 0.5733
+      }
+    },
+    "mtl_with_grl": {
+      "activity": {
+        "acc": 0.2834,
+        "f1": 0.2221
+      },
+      "fall": {
+        "acc": 0.8035,
+        "f1": 0.6093
+      }
+    },
+    "generalization_gap": {
+      "activity": 0.5609,
+      "fall": 0.15280000000000005
+    }
+  },
+  "model_config": {
+    "architecture": "Transformer Encoder + MTL heads",
+    "d_model": 128,
+    "nhead": 8,
+    "num_layers": 4,
+    "dim_feedforward": 256,
+    "dropout": 0.1,
+    "params": 546986,
+    "window_size": 500,
+    "stride": 250
+  },
+  "training_config": {
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "scheduler": "CosineAnnealingLR",
+    "batch_size": 64,
+    "epochs": 50,
+    "grad_clip": 1.0
+  }
+}
